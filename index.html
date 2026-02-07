@@ -11,8 +11,61 @@
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .gradient-text { background: linear-gradient(90deg, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card-hover:hover { transform: translateY(-10px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .glow { box-shadow: 0 0 30px rgba(37, 99, 235, 0.15); }
+        
+        /* --- HIỆU ỨNG VIỀN NEON LUÔN CHẠY (ALWAYS ON) --- */
+        .btn-animate {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-animate::before {
+            content: "";
+            position: absolute;
+            z-index: -2;
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            background-repeat: no-repeat;
+            background-size: 50% 50%, 50% 50%;
+            background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+            background-image: conic-gradient(transparent, #ffffff, #3b82f6, #ffffff);
+            animation: rotate 3s linear infinite;
+        }
+
+        .btn-animate::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 2px;
+            top: 2px;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            background: inherit;
+            border-radius: inherit;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-animate:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Nút Download CV (Glow Trắng/Tuyết) */
+        .btn-cv-dark::before {
+            background-image: conic-gradient(transparent, #ffffff, #cbd5e1, #ffffff);
+        }
+
+        .card-hover:hover { transform: translateY(-10px); transition: all 0.4s ease; }
+        .glow-box { box-shadow: 0 0 30px rgba(37, 99, 235, 0.1); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -38,30 +91,30 @@
                     Transforming Tech into <br><span class="gradient-text">Scalable Growth</span>
                 </h1>
                 <p class="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
-                    I am <strong>Nguyen Dinh Dung</strong>. As a Digital Marketing Executive with a technical foundation in Information Technology, I offer a unique perspective in the Web3 and HRTech landscape. I excel at deciphering complex technical frameworks to create market-ready content that resonates with users.
+                    I am <strong>Nguyen Dinh Dung</strong>. As a Digital Marketing Executive with a technical foundation in Information Technology, I bridge the gap between technical products and market-ready content. My focus is on leveraging AI to optimize growth for Web3 and SaaS startups.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#experience" class="bg-blue-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition text-sm text-center">
+                    <a href="#experience" class="btn-animate bg-blue-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg text-sm min-w-[160px]">
                         Explore My Projects
                     </a>
                     
-                    <a href="New_CV_NguyenDinhDung_Marketing.pdf" download="New_CV_NguyenDinhDung_Marketing" class="bg-slate-900 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-slate-300 hover:bg-slate-800 transition text-sm flex items-center justify-center">
-                        <i class="fas fa-file-download mr-2"></i> Download My CV
+                    <a href="New_CV_NguyenDinhDung_Marketing.pdf" download="New_CV_NguyenDinhDung_Marketing" class="btn-animate btn-cv-dark bg-slate-900 text-white px-6 py-4 rounded-xl font-bold shadow-lg text-sm min-w-[160px]">
+                        <i class="fas fa-file-download mr-2 text-blue-400"></i> Download My CV
                     </a>
 
-                    <a href="https://www.linkedin.com/in/andrew-nguyen-095563375/" target="_blank" class="border border-slate-300 px-6 py-4 rounded-xl font-bold hover:bg-white transition flex items-center justify-center text-sm">
+                    <a href="https://www.linkedin.com/in/andrew-nguyen-095563375/" target="_blank" class="btn-animate border border-slate-300 bg-white px-6 py-4 rounded-xl font-bold text-sm min-w-[160px]">
                         <i class="fab fa-linkedin mr-2 text-blue-600"></i> LinkedIn Profile
                     </a>
                 </div>
             </div>
             <div class="relative">
                 <div class="absolute -z-10 w-80 h-80 bg-blue-500 rounded-full blur-[120px] opacity-10 top-0 right-0"></div>
-                <div class="bg-white p-4 rounded-3xl shadow-2xl border border-slate-100 glow">
+                <div class="bg-white p-4 rounded-3xl shadow-2xl border border-slate-100 glow-box">
                     <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="Technical Marketing" class="rounded-2xl w-full h-[450px] object-cover">
                     <div class="mt-4 flex justify-between items-center px-2">
                         <div>
                             <p class="text-sm font-bold text-slate-800">Based in Da Nang City</p>
-                            <p class="text-xs text-slate-500 uppercase tracking-tighter">Bachelor of IT</p>
+                            <p class="text-xs text-slate-500 uppercase tracking-tighter">Bachelor of IT </p>
                         </div>
                         <div class="flex gap-2">
                             <span class="px-2 py-1 bg-slate-100 rounded-md text-[10px] font-bold text-blue-600 uppercase tracking-widest">Web3</span>
@@ -75,25 +128,37 @@
 
     <section id="experience" class="py-24 px-6 bg-white border-y border-slate-50">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
+            <div class="mb-16 text-center md:text-left">
                 <h2 class="text-3xl font-bold mb-4 tracking-tight uppercase">Strategic Experience</h2>
-                <div class="h-1 w-20 bg-blue-600"></div>
+                <div class="h-1 w-20 bg-blue-600 mx-auto md:mx-0"></div>
             </div>
+            
             <div class="space-y-16">
                 <div class="grid md:grid-cols-12 gap-8">
                     <div class="md:col-span-4">
-                        <h3 class="text-xl font-bold text-slate-900">UCTalent</h3>
+                        <h3 class="text-2xl font-bold text-slate-900">UCTalent</h3>
                         <p class="text-blue-600 font-semibold text-sm uppercase tracking-wider mb-2 italic">Digital Marketing Executive</p>
                         <p class="text-slate-400 text-xs font-bold uppercase">Feb 2025 - Present</p>
                     </div>
-                    <div class="md:col-span-8 space-y-4 border-l border-slate-100 pl-8">
-                        <p class="text-slate-600 leading-relaxed italic">"Spearheaded marketing content for the Pioneer Program (UPP), simplifying complex whitepaper concepts."</p>
-                        <ul class="grid md:grid-cols-2 gap-4 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> Optimized UI/UX flow and website wording for higher sign-up conversions.</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> Managed 5+ social channels (LinkedIn, X, Discord) with a specialized persona.</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> Reduced content production time by 50% via AI-assisted workflows.</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> Driven campaign ROI through iterative 2-week agile marketing sprints.</li>
+                    <div class="md:col-span-8 space-y-4 border-l-2 border-blue-50 pl-8 text-slate-600">
+                        <p class="leading-relaxed italic">"Spearheaded marketing content for the UCTalent Pioneer Program (UPP), translating complex whitepaper concepts into digestible social media assets for global communities."</p>
+                        <ul class="grid md:grid-cols-2 gap-6 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i> Optimized UI/UX flow for sign-up conversions.</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i> Managed 5+ social channels with a unique persona.</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i> 50% faster production via AI workflows.</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i> Executed 2-week Agile marketing sprints.</li>
                         </ul>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-12 gap-8">
+                    <div class="md:col-span-4">
+                        <h3 class="text-2xl font-bold text-slate-900">Paracel Technology</h3>
+                        <p class="text-blue-600 font-semibold text-sm uppercase tracking-wider mb-2 italic">Front-end Intern</p>
+                        <p class="text-slate-400 text-xs font-bold uppercase">2023 - 2024</p>
+                    </div>
+                    <div class="md:col-span-8 border-l-2 border-blue-50 pl-8 text-slate-600">
+                        <p class="leading-relaxed mb-4">Applied HTML/CSS/JS skills to implement UI components and ensure seamless user experiences. Bridged the gap between design and marketing teams.</p>
                     </div>
                 </div>
             </div>
@@ -102,54 +167,28 @@
 
     <section id="proof" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
-                <div class="max-w-2xl text-left">
-                    <h2 class="text-3xl font-bold mb-4 tracking-tight uppercase underline decoration-blue-200 decoration-4 underline-offset-8">Live Proof</h2>
-                    <p class="text-slate-500 italic mt-4">Actual evidence of community management and technical messaging across Web3 platforms.</p>
-                </div>
-                <div class="flex items-center gap-2 text-sm font-bold text-green-600 bg-green-50 px-4 py-2 rounded-full border border-green-100">
-                    <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                    </span>
-                    PROJECTS LIVE
-                </div>
-            </div>
-
+            <h2 class="text-3xl font-bold mb-12 uppercase underline decoration-blue-200 decoration-4 underline-offset-8">Live Proof</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <a href="https://x.com/UCTalent_io" target="_blank" class="group bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-blue-400 transition-all duration-300">
-                    <div class="w-12 h-12 bg-slate-900 text-white rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153ZM17.61 20.644h2.039L6.486 3.24H4.298L17.61 20.644Z"/>
-                        </svg>
+                <a href="https://x.com/UCTalent_io" target="_blank" class="group bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-2xl hover:border-blue-400 transition-all duration-300 card-hover">
+                    <div class="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fab fa-x-twitter text-2xl"></i>
                     </div>
                     <h4 class="font-bold text-xl mb-2">Web3 Content (X)</h4>
-                    <p class="text-sm text-slate-500 mb-6">Simplifying complex blockchain narratives for a global audience.</p>
-                    <span class="text-blue-600 font-bold text-xs uppercase tracking-widest flex items-center group-hover:gap-2 transition-all">
-                        Check Live Feed <i class="fas fa-arrow-right ml-2"></i>
-                    </span>
+                    <p class="text-sm text-slate-500">Simplifying blockchain narratives for a global audience.</p>
                 </a>
-
-                <a href="https://www.linkedin.com/company/uctalent/" target="_blank" class="group bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-blue-400 transition-all duration-300">
-                    <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                        <i class="fab fa-linkedin-in text-xl"></i>
+                <a href="https://www.linkedin.com/company/uctalent/" target="_blank" class="group bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-2xl hover:border-blue-400 transition-all duration-300 card-hover">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fab fa-linkedin-in text-2xl"></i>
                     </div>
                     <h4 class="font-bold text-xl mb-2">Employer Branding</h4>
-                    <p class="text-sm text-slate-500 mb-6">Establishing professional authority for decentralized talent platforms.</p>
-                    <span class="text-blue-600 font-bold text-xs uppercase tracking-widest flex items-center group-hover:gap-2 transition-all">
-                        See Strategy <i class="fas fa-arrow-right ml-2"></i>
-                    </span>
+                    <p class="text-sm text-slate-500">Establishing authority for decentralized platforms.</p>
                 </a>
-
-                <div class="group bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl transition-all duration-300">
-                    <div class="w-12 h-12 bg-indigo-500 text-white rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                        <i class="fab fa-discord text-xl"></i>
+                <div class="group bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="w-14 h-14 bg-indigo-500 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fab fa-discord text-2xl"></i>
                     </div>
                     <h4 class="font-bold text-xl mb-2">Community Engine</h4>
-                    <p class="text-sm text-slate-500 mb-6">Managing Discord & Telegram growth via technical bridge-building.</p>
-                    <span class="text-slate-400 font-bold text-xs uppercase tracking-widest flex items-center">
-                        Active Channel <i class="fas fa-check ml-2"></i>
-                    </span>
+                    <p class="text-sm text-slate-500">Discord & Telegram growth via technical bridge-building.</p>
                 </div>
             </div>
         </div>
@@ -158,76 +197,47 @@
     <section id="skills" class="py-24 bg-blue-600 text-white">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
             <div>
-                <h2 class="text-4xl font-bold mb-6 italic tracking-tighter">Tech-Driven Marketing</h2>
-                <p class="text-blue-100 mb-10 leading-relaxed">Fusing <strong>Information Technology</strong> expertise with Growth Marketing to build data-driven funnels.</p>
-                <div class="space-y-6">
+                <h2 class="text-4xl font-bold mb-6 italic tracking-tighter uppercase">Technical Marketing Stack</h2>
+                <div class="space-y-8">
                     <div>
-                        <div class="flex justify-between mb-2"><span class="font-bold uppercase text-sm">AI Content Production</span><span>95%</span></div>
-                        <div class="w-full bg-blue-800 rounded-full h-2"><div class="bg-white h-2 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]" style="width: 95%"></div></div>
+                        <div class="flex justify-between mb-2"><span class="font-bold uppercase text-sm tracking-widest">AI Content Production</span><span>95%</span></div>
+                        <div class="w-full bg-blue-800 rounded-full h-3"><div class="bg-white h-3 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]" style="width: 95%"></div></div>
                     </div>
                     <div>
-                        <div class="flex justify-between mb-2"><span class="font-bold uppercase text-sm">Web3 Ecosystem Strategy</span><span>85%</span></div>
-                        <div class="w-full bg-blue-800 rounded-full h-2"><div class="bg-white h-2 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]" style="width: 85%"></div></div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2"><span class="font-bold uppercase text-sm">Front-end Implementation</span><span>80%</span></div>
-                        <div class="w-full bg-blue-800 rounded-full h-2"><div class="bg-white h-2 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]" style="width: 80%"></div></div>
+                        <div class="flex justify-between mb-2"><span class="font-bold uppercase text-sm tracking-widest">Web3 Ecosystem Strategy</span><span>85%</span></div>
+                        <div class="w-full bg-blue-800 rounded-full h-3"><div class="bg-white h-3 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]" style="width: 85%"></div></div>
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4 text-slate-800">
-                <div class="bg-white p-6 rounded-2xl shadow-xl card-hover border-t-4 border-blue-400">
-                    <i class="fa-solid fa-bullseye text-2xl mb-4 text-blue-600"></i>
-                    <h4 class="font-bold mb-1 uppercase text-xs">Inbound Growth</h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">Content Strategy, Lead Gen</p>
+            <div class="grid grid-cols-2 gap-6 text-slate-800">
+                <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-blue-400 card-hover">
+                    <h4 class="font-bold mb-2 uppercase text-xs">Inbound Growth</h4>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">SEO, CRO, Lead Gen</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-xl card-hover border-t-4 border-blue-400">
-                    <i class="fa-solid fa-brain text-2xl mb-4 text-blue-600"></i>
-                    <h4 class="font-bold mb-1 uppercase text-xs">AI & Creative</h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">Prompt Engineering, Canva</p>
+                <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-blue-400 card-hover">
+                    <h4 class="font-bold mb-2 uppercase text-xs">AI Automation</h4>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">Prompt Eng, LLMs</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-xl card-hover border-t-4 border-blue-400">
-                    <i class="fa-solid fa-chart-line text-2xl mb-4 text-blue-600"></i>
-                    <h4 class="font-bold mb-1 uppercase text-xs">Data & CRO</h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">GA4, Excel Analysis</p>
+                <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-blue-400 card-hover">
+                    <h4 class="font-bold mb-2 uppercase text-xs">Technical</h4>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">HTML, CSS, JS, API</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-xl card-hover border-t-4 border-blue-400">
-                    <i class="fa-solid fa-gears text-2xl mb-4 text-blue-600"></i>
-                    <h4 class="font-bold mb-1 uppercase text-xs">Workflow Automation</h4>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">Notion, Trello, Slack</p>
+                <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-blue-400 card-hover">
+                    <h4 class="font-bold mb-2 uppercase text-xs">Analytics</h4>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">GA4, Excel, CRM</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-24 px-6 text-center">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 uppercase italic tracking-tighter">Ready to Scale?</h2>
-            <div class="bg-white p-10 rounded-3xl shadow-2xl border border-slate-100 glow">
-                <div class="grid md:grid-cols-2 gap-8 mb-10 text-left border-b border-slate-100 pb-10">
-                    <div>
-                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1 italic">Professional Email</p>
-                        <a href="mailto:rekcahcoder22@gmail.com" class="text-lg font-bold text-blue-600 hover:text-blue-800 transition">rekcahcoder22@gmail.com</a>
-                    </div>
-                    <div>
-                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1 italic">Direct Line</p>
-                        <p class="text-lg font-bold text-slate-800">+84 326 689 947</p>
-                    </div>
-                </div>
-                <a href="https://www.linkedin.com/in/andrew-nguyen-095563375/" target="_blank" class="w-full block bg-blue-600 text-white font-bold py-5 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-200 uppercase tracking-widest text-sm text-center">
-                    Connect on LinkedIn
-                </a>
-            </div>
+    <footer id="contact" class="py-24 px-6 text-center bg-slate-900 text-white">
+        <h2 class="text-4xl font-bold mb-8 uppercase italic tracking-tighter">Ready to Scale Your Project?</h2>
+        <div class="flex justify-center space-x-10 mb-12">
+            <a href="https://www.linkedin.com/in/andrew-nguyen-095563375/" class="text-4xl hover:text-blue-400 transition-all hover:scale-125"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:rekcahcoder22@gmail.com" class="text-4xl hover:text-blue-400 transition-all hover:scale-125"><i class="fas fa-envelope"></i></a>
         </div>
-    </section>
-
-    <footer class="py-12 border-t border-slate-100 text-center text-slate-400">
-        <p class="text-xs font-medium tracking-wide mb-6 italic uppercase">"Bridging the gap between technical innovation and market resonance."</p>
-        <div class="flex justify-center space-x-6">
-            <a href="https://www.linkedin.com/in/andrew-nguyen-095563375/" class="hover:text-blue-600 transition"><i class="fab fa-linkedin-in text-lg"></i></a>
-            <a href="mailto:rekcahcoder22@gmail.com" class="hover:text-blue-600 transition"><i class="fas fa-envelope text-lg"></i></a>
-        </div>
-        <p class="mt-8 text-[10px] uppercase font-bold tracking-widest">© 2026 Nguyen Dinh Dung | Digital Marketing Executive</p>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-2">Nguyen Dinh Dung | Digital Marketing Executive</p>
+        <p class="text-[9px] uppercase tracking-[0.2em] text-slate-600">© 2026 Andrew Nguyen. All Rights Reserved.</p>
     </footer>
 
 </body>
