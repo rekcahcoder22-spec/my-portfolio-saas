@@ -16,7 +16,7 @@
 
     <!-- navbar avatar removed per user request -->
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
+    body { position: relative; font-family: 'Inter', sans-serif; scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
     .gradient-text { background: linear-gradient(90deg, #2563eb, #3b82f6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
         
         /* --- HIỆU ỨNG VIỀN NEON LUÔN CHẠY --- */
@@ -77,8 +77,14 @@
         .btn-cv-dark {
             background: linear-gradient(90deg, var(--brand-800), var(--brand-900)) !important;
             color: #fff !important;
-            border: none !important;
+            border: 1px solid rgba(255,255,255,0.06) !important;
         }
+        /* Button borders and focus states */
+        .btn-animate, .btn-cv-dark { border-radius: .75rem; transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease; }
+        .btn-animate { border: 1px solid rgba(59,130,246,0.12) !important; }
+        .btn-animate:hover { border-color: rgba(59,130,246,0.95) !important; }
+        .btn-cv-dark:hover { box-shadow: 0 12px 30px rgba(11,42,74,0.18); transform: translateY(-3px); }
+        .btn-animate:focus-visible, .btn-cv-dark:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(59,130,246,0.12); }
 
         .btn-cv-dark::before {
             background-image: conic-gradient(transparent, #ffffff, #cbd5e1, #ffffff);
@@ -414,7 +420,7 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        z-index: 0; /* behind nav (z-50) and most content */
+        z-index: -1; /* place behind page content */
         overflow: hidden;
     }
     .snow-container .snowflake {
@@ -443,6 +449,15 @@
     /* Technical Ecosystem heading will reuse the title-animate gradient class for brand color */
         .reveal.in { opacity: 1; transform: translateY(0); }
         @media (prefers-reduced-motion: reduce) { .reveal { transition: none !important; transform: none !important; } }
+    /* Ensure reveal-container children sit above the decorative fades */
+    .reveal-container > * { position: relative; z-index: 5; }
+
+    /* On small screens the side gradient masks can cover too much content — hide them */
+    @media (max-width: 640px) {
+        .reveal-container::before, .reveal-container::after { display: none; }
+        /* Ensure marquee still animates on mobile unless user prefers reduced motion */
+        .animate-marquee, .animate-marquee2 { animation-play-state: running !important; }
+    }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 transition-colors duration-300">
@@ -516,8 +531,8 @@
                         Explore My Projects
                     </a>
                     
-                    <a href="New_CV_NguyenDinhDung_Marketing.pdf" download="New_CV_NguyenDinhDung_Marketing" class="btn-animate btn-cv-dark bg-slate-900 dark:bg-slate-800 text-white px-6 py-4 rounded-xl font-bold shadow-lg text-sm min-w-[160px]">
-                        <i class="fas fa-file-download mr-2 text-blue-400"></i> Download My CV
+                    <a href="New_CV_NguyenDinhDung_Marketing.pdf" download="New_CV_NguyenDinhDung_Marketing" class="btn-animate btn-cv-dark px-6 py-4 rounded-xl font-bold shadow-lg text-sm min-w-[160px]">
+                        <i class="fas fa-file-download mr-2"></i> Download My CV
                     </a>
 
                     <a href="https://www.linkedin.com/in/andrew-nguyen-095563375/" target="_blank" class="btn-animate border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-4 rounded-xl font-bold text-sm min-w-[160px] dark:text-white">
