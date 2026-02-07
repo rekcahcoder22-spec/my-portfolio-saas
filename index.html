@@ -66,6 +66,20 @@
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
         }
 
+        /* Ensure brand-consistent CTAs */
+        .btn-animate {
+            background: var(--brand-primary) !important;
+            color: #fff !important;
+            border: none !important;
+        }
+        .btn-animate i { color: rgba(255,255,255,0.95) !important; }
+
+        .btn-cv-dark {
+            background: linear-gradient(90deg, var(--brand-800), var(--brand-900)) !important;
+            color: #fff !important;
+            border: none !important;
+        }
+
         .btn-cv-dark::before {
             background-image: conic-gradient(transparent, #ffffff, #cbd5e1, #ffffff);
         }
@@ -358,6 +372,21 @@
         /* Respect reduced motion for marquee */
         @media (prefers-reduced-motion: reduce) {
             .animate-marquee, .animate-marquee2 { animation: none !important; }
+        }
+
+        /* Mobile responsiveness tweaks */
+        @media (max-width: 640px) {
+            /* Make CTAs stack and fill width on small screens */
+            .btn-animate { display: block !important; width: 100% !important; min-width: auto !important; padding-left: 1rem !important; padding-right: 1rem !important; }
+            .btn-animate + .btn-animate { margin-top: 0.75rem !important; }
+
+            /* Reduce marquee density and card sizes */
+            .skill-card { font-size: 0.95rem; padding: 0.5rem 1rem; }
+            .animate-marquee, .animate-marquee2 { animation-duration: 40s !important; }
+
+            /* Footer padding and heading scale */
+            .footer-section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+            .footer-section h2 { font-size: 1.75rem; }
         }
 
         /* Dừng lại khi di chuột vào (Dành cho UX) */
